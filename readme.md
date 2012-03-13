@@ -12,26 +12,26 @@ To load Debugger into your application use `$this->load->spark('debugger/1.0.0')
 
 ### Usage
 
-**Debugger::bindObserver($observer)**
-*Bind an observer to the debug object by name*
+**Debugger::bindObserver($observer)**  
+*Bind an observer to the debug object by name*  
 *$observer - The observer class name*
 
 Bound observers will be notified by the Debugger in the event that Debugger::debug() is called, either manually, or by the DebugException handler. At least one observer should be bound to the debug session in order for it to provide the functionality intended. Custom observers may be added and must implement the ObserverInterface in order to be loaded. Non-existent observers, or classes that do not implement the ObserverInterface simply won't be  bound.
 
-**Debugger::addBreakpoint($message, $data)**
-*Add a breakpoint to the debug session*
-*$message - (string) Description of the debug breakpoint*
+**Debugger::addBreakpoint($message, $data)**  
+*Add a breakpoint to the debug session*  
+*$message - (string) Description of the debug breakpoint*  
 *$data - (mixed) Data that will assist with the debugging process*
 
 @todo Write function description
 
-**Debugger::debug()**
+**Debugger::debug()**  
 *Trigger the debugger on demand*
 
 Calls the handle() function of all bound observers and collects their responses. A notification will be sent to all email addresses (`emailTo`) set in the spark configuration file (`config/debugger.php`). In production, triggering the debugger manually is not advised, though doing so will not stop application execution.
 
-**Debugger::handleException($e)**
-*The DebugException handler*
+**Debugger::handleException($e)**  
+*The DebugException handler*  
 *$e - (Exception) Exception to be handled*
 
 The debugger registers a custom exception handler. In the event a `DebugException` is thrown, the handler will call `Debugger::debug()`, stop execution and display the debug view - this is the advised way to handle the logging of debug sessions. Other types of exception will not be handled, instead the previous handler (default or other custom handler) will be restored and the exception will be re-thrown.
