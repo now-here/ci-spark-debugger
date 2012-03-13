@@ -44,7 +44,7 @@ class Log implements ObserverInterface
 		$logDir  = realpath(APPPATH) . '/logs/';
 		$logFile = $logDir . $this->config['prefix'] . mt_rand() . '.' . $this->config['extension'];
 		$logEntry = serialize($breakpoints);
-		if(file_put_contents($logFile, $logEntry , FILE_APPEND|LOCK_EX) > 0){
+		if(file_put_contents($logFile, $logEntry, LOCK_EX) > 0){
 			return 'Debug session written to ' . $logFile;
 		}
 		return 'Unable to write to log file ' . $logFile;
