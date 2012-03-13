@@ -12,7 +12,7 @@ To load Debugger into your application use `$this->load->spark('debugger/x.x.x')
 
 **Debugger::bindObserver($observer)**  
 *Bind an observer to the debug object by name*  
-*$observer - (string) The observer class name*
+*$observer - (string) The observer class name i.e. Log, Database*
 
 Bound observers will be notified by the Debugger in the event that Debugger::debug() is called, either manually, or by the DebugException handler. At least one observer should be bound to the debug session in order for it to provide the functionality intended. Custom observers may be added and must implement the ObserverInterface in order to be loaded. Non-existent observers, or classes that do not implement the ObserverInterface simply won't be  bound.
 
