@@ -19,9 +19,9 @@ Bound observers will be notified by the Debugger in the event that Debugger::deb
 **Debugger::addBreakpoint($message, $data)**  
 *Add a breakpoint to the debug session*  
 *$message - (string) Description of the debug breakpoint*  
-*$data - (mixed) Data that will assist with the debugging process*
+*$data - (mixed) Data that will assist with the debugging process. This will be serialized before storing*
 
-@todo Write function description
+Breakpoints are user-configured 'checkpoints' within an application, put in place to make the debugging process easier. `$data` is serialized before storage. Data stored in the GET, POST, COOKIE, SESSION and SERVER superglobals will also be collected and a timestamp for each breakpoint will be stored.
 
 **Debugger::debug()**  
 *Trigger the debugger on demand*
