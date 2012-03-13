@@ -40,10 +40,9 @@ class Debugger
 	
 	/**
 	 * Class constructor
-	 * @param array $config Key => value of debug options
 	 * @return void
 	 */
-	public function __construct(array $config = array())
+	public function __construct()
 	{		
 		// Get the CodeIgniter instance
 		$this->CI =& get_instance();
@@ -53,6 +52,28 @@ class Debugger
 		
 		// Set the default exception handler
 		set_exception_handler(array($this, 'handleException'));
+	}
+	
+	/**
+	 * Bind an observer to the debug session
+	 * $observer must implement the ObserverInterface
+	 * When the logging functions are called, all registered
+	 * observers will execute their handle() methods. This function
+	 * is non-blocking and should an observer not be found, or not
+	 * implement the interface, it simply won't be bound.
+	 * @param string $observer The name of the observer class
+	 * @return void
+	 */
+	public function bindObserver($observer)
+	{
+		$file = dirname(__FILE__) . '/Observer/' . $observer . '.php';
+		if(file_exists($file)){
+			require_once($file);
+			$obj = new $observer($this->CI, $this->config);
+			if($obj instanceof ObserverInterface){
+				$this->observers[] = $obj;
+			}
+		}
 	}
     
     /**
@@ -82,28 +103,6 @@ class Debugger
     }
     
     /**
-     * Bind an observer to the debug session
-     * $observer must implement the ObserverInterface
-     * When the logging functions are called, all registered
-     * observers will execute their handle() methods. This function
-     * is non-blocking and should an observer not be found, or not
-     * implement the interface, it simply won't be bound.
-     * @param string $observer The name of the observer class
-     * @param array $config Key => value of configuration options
-     */
-    public function bindObserver($observer)
-    {
-    	$file = dirname(__FILE__) . '/Observer/' . $observer . '.php';
-    	if(file_exists($file)){
-    		require_once($file);
-    		$obj = new $observer($this->CI, $this->config);
-    		if($obj instanceof ObserverInterface){
-    			$this->observers[] = $obj;
-    		}
-    	}
-    }
-    
-    /**
      * Run the debugger on demand
 	 * Call the handle method of all bound observers
 	 * and send an email to the technical contacts
@@ -121,7 +120,7 @@ class Debugger
     	
     	// Generate the notification email content
     	$viewData = array('responses' => $responses);
-    	$message = $this->CI->load->view('Debug/Notification', $viewData, true);
+    	$message = $this->CI->load->view('Notification', $viewData, true);
     	 
     	// Prepare the to addresses
     	$to = implode(',', $this->config['emailTo']);
@@ -151,7 +150,7 @@ class Debugger
     {	
     	if($e instanceof DebugException){
     		$this->debug();
-    		echo $this->CI->load->view('Debug/View', null, true);
+    		echo $this->CI->load->view('View', null, true);
     	} else {
     		restore_exception_handler();
     		throw $e;
