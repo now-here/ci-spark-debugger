@@ -4,17 +4,15 @@ Debugger is a spark that provides flexible debugging functionality inside CodeIg
 
 ### Installation
 
-First, you will need to [install the sparks package manager][]. Once this is complete, change directory to the root of your CodeIgniter application 
+First, you will need to [install the sparks package manager][]. Once this is complete, change directory to the root of your CodeIgniter application and issue the following command `php tools/spark install debugger`. You're on fire!
 
-and issue the following command `php tools/spark install debugger`. You're on fire!
-
-To load Debugger into your application use `$this->load->spark('debugger/1.0.0')`. The debugger object will now be accessible via `$this->debugger`.
+To load Debugger into your application use `$this->load->spark('debugger/x.x.x')`. The debugger object will now be accessible via `$this->debugger`.
 
 ### Usage
 
 **Debugger::bindObserver($observer)**  
 *Bind an observer to the debug object by name*  
-*$observer - The observer class name*
+*$observer - (string) The observer class name*
 
 Bound observers will be notified by the Debugger in the event that Debugger::debug() is called, either manually, or by the DebugException handler. At least one observer should be bound to the debug session in order for it to provide the functionality intended. Custom observers may be added and must implement the ObserverInterface in order to be loaded. Non-existent observers, or classes that do not implement the ObserverInterface simply won't be  bound.
 
@@ -28,7 +26,7 @@ Bound observers will be notified by the Debugger in the event that Debugger::deb
 **Debugger::debug()**  
 *Trigger the debugger on demand*
 
-Calls the handle() function of all bound observers and collects their responses. A notification will be sent to all email addresses (`emailTo`) set in the spark configuration file (`config/debugger.php`). In production, triggering the debugger manually is not advised, though doing so will not stop application execution.
+Calls the handle() function of all bound observers and collects their responses. A notification will be sent to all email addresses (`emailTo`) set in the spark configuration file (`config/debugger.php`). In production, triggering the debugger manually is *not* advised, though doing so will not stop application execution.
 
 **Debugger::handleException($e)**  
 *The DebugException handler*  
