@@ -32,6 +32,6 @@ Calls the handle() function of all bound observers and collects their responses.
 *The DebugException handler*  
 *$e - (Exception) Exception to be handled*
 
-The debugger registers a custom exception handler. In the event a `DebugException` is thrown, the handler will call `Debugger::debug()`, stop execution and display the debug view - this is the advised way to handle the logging of debug sessions. Other types of exception will not be handled, instead the previous handler (default or other custom handler) will be restored and the exception will be re-thrown.
+The debugger registers a custom exception handler. In the event a `DebugException` is thrown, the handler will call `Debugger::debug()`, stop execution and display the debug view - this is the advised way to handle the logging of debug sessions and you should **not** call this function manually. Other types of exception will not be handled, instead the previous handler (default or other custom handler) will be restored and the exception will be re-thrown.
 
 [install the sparks package manager]: http://getsparks.org/install 
