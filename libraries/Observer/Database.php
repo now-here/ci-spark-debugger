@@ -77,6 +77,6 @@ class Database implements ObserverInterface
 			$id = $this->CI->db->insert_id();
 			return "Debug session stored in $db.$table ($host) with record ID $id";
 		}
-		return "Failed to store debug session in $db ($host)";
+		return "Failed to store debug session in $db.$table ($host)";
 	}
 }
