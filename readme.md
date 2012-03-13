@@ -26,7 +26,7 @@ Bound observers will be notified by the Debugger in the event that Debugger::deb
 **Debugger::debug()**  
 *Trigger the debugger on demand*
 
-Calls the handle() function of all bound observers and collects their responses. A notification will be sent to all email addresses (`emailTo`) set in the spark configuration file (`config/debugger.php`). In production, triggering the debugger manually is *not* advised, though doing so will not stop application execution.
+Calls the handle() function of all bound observers and collects their responses. A notification detailing how the debug session was handled (i.e. which observers were used, where log files were written to, database record ID) will be sent to all email addresses (`emailTo`) set in the spark configuration file (`config/debugger.php`). In production, triggering the debugger manually is *not* advised, though doing so will not stop application execution.
 
 **Debugger::handleException($e)**  
 *The DebugException handler*  
