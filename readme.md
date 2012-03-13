@@ -6,7 +6,7 @@ Debugger is a spark that provides flexible debugging functionality inside CodeIg
 
 First, you will need to [install the sparks package manager][]. Once this is complete, change directory to the root of your CodeIgniter application and issue the following command `php tools/spark install debugger`. You're on fire!
 
-To load Debugger into your application use `$this->load->spark('debugger/x.x.x')`. The debugger object will now be accessible via `$this->debugger`.
+To load Debugger into your application use `$this->load->spark('debugger/x.x.x')` (see [tags][] for available version numbers). The debugger object will now be accessible via `$this->debugger`.
 
 ### Usage
 
@@ -34,4 +34,5 @@ Calls the handle() function of all bound observers and collects their responses.
 
 The debugger registers a custom exception handler. In the event a `DebugException` is thrown, the handler will call `Debugger::debug()`, stop execution and display the debug view - this is the advised way to handle the logging of debug sessions and you should **not** call this function manually. Other types of exception will not be handled, instead the previous handler (default or other custom handler) will be restored and the exception will be re-thrown.
 
-[install the sparks package manager]: http://getsparks.org/install 
+[install the sparks package manager]: http://getsparks.org/install
+[tags]: https://github.com/now-here/ci-spark-debugger/tags
